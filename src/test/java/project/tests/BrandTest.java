@@ -2,47 +2,40 @@ package project.tests;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import project.pages.BasePage;
+import project.pages.BrandsPage;
 import project.pages.MainPage;
 
-import java.util.concurrent.TimeUnit;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class BrandTest extends BaseTest {
 
-    private MainPage mainPage;
+
+    //     Test #0
+    //
+    // Go to the https://demo.opencart.com/
+    // Click on 'Brands' at the bottom of the page
+    // Check that following brands exists on page [Apple,Canon,Hewlett-Packard,HTC,Palm,Sony]
 
     @Test
     public void findBrands() {
-        mainPage = new MainPage();
+        MainPage mainPage = new MainPage();
         mainPage.openMainPage();
 
-        WebDriver driver = BasePage.getDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement brandButton = mainPage.handleBrandButton();
+        BasePage.makeClick(brandButton);
 
-        By brandsBy = By.xpath("//*[text()='Brands']");
+        //Brands page
+        List<String> brands = Arrays.asList("Apple", "Canon", "Hewlett-Packard", "HTC", "Palm", "Sony");
+        BrandsPage brandsPage = new BrandsPage();
+        boolean arePresent = brandsPage.areBrandsPresent(brands);
 
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        WebElement button = driver.findElement(brandsBy);
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(); window.scrollBy(0, 200);", button);
-
-        WebElement brandsButton = wait.until(ExpectedConditions.visibilityOf(button));
-        brandsButton.click();
-
-//        List<String> brands = Arrays.asList("Apple", "Canon", "Hewlett-Packard", "HTC", "Palm", "Sony");
-//        for (String brand : brands) {
-//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + brand + "']")));
-//        }
-
+        assertTrue(arePresent);
     }
 
 }
