@@ -21,4 +21,13 @@ public class MainPage extends BasePage {
     public WebElement registerButton() {
         return findElementByXpath("//*[text()='Register']");
     }
+
+    public WebElement desktopsButton() {
+        return findElementByXpath("//*[text()='Desktops']");
+    }
+
+    public WebElement seeAllDesktopsButton() {
+        return findElementByXpath("//*[text()='Show All Desktops']");
+    }
+
 }
