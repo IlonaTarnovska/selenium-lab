@@ -31,4 +31,9 @@ public abstract class BasePage {
     public static void makeClick(WebElement element) {
         getJavascriptExecutor().executeScript("arguments[0].click();", element);
     }
+
+    public void setAttribute(WebElement element, String attName, String attValue) {
+        getJavascriptExecutor().executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);",
+                element, attName, attValue);
+    }
 }

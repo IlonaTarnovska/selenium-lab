@@ -14,4 +14,11 @@ public class MainPage extends BasePage {
         return findElementByXpath("//*[text()='Brands']");
     }
 
+    public WebElement myAccountButton() {
+        return findElementByXpath("//*[text()='My Account']");
+    }
+
+    public WebElement registerButton() {
+        return findElementByXpath("//*[text()='Register']");
+    }
 }
