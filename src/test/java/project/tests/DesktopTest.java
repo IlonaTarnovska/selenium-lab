@@ -43,7 +43,7 @@ public class DesktopTest extends BaseTest {
         String limitValue = dropdownLimitSelected.getText();
         boolean isLimit10 = limitValue.equals("10");
 
-        WebElement dropdownSort = desktopPage.dropdownSort();
+        WebElement dropdownSort = desktopPage.dropdownSortValue();
         String sortValue = dropdownSort.getText();
         boolean isSortDefault = sortValue.equals("Default");
 
