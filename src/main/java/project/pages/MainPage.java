@@ -1,7 +1,7 @@
 package project.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import project.pages.model.Currency;
 
 public class MainPage extends BasePage {
 
@@ -44,6 +44,10 @@ public class MainPage extends BasePage {
 
     public WebElement findProductByName(String name) {
         return findElementByXpath("//*[text()='" + name + "']");
+    }
+
+    public WebElement camerasButton() {
+        return findElementByXpath("//*[text()='Cameras']");
     }
 
 }
