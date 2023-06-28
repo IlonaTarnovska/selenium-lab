@@ -1,13 +1,8 @@
 package project.tests;
 
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import project.pages.BasePage;
 import project.pages.DesktopPage;
 import project.pages.MainPage;
-
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -29,41 +24,18 @@ public class DesktopTest extends BaseTest {
     @Test()
     public void checkDesktopsPage() {
         MainPage mainPage = new MainPage();
-        mainPage.openMainPage();
+        DesktopPage desktopPage = mainPage.clickDesktopsButton()
+                .clickAllDesktopsButton();
 
-        WebElement desktopsButton =  mainPage.desktopsButton();
-        BasePage.makeClick(desktopsButton);
+        boolean isLimit10 = desktopPage.checkDropdownLimitValue("10");
+        boolean isSortDefault = desktopPage.checkDropdownSortValue("Default");
+        boolean isProducts10 = desktopPage.productsCountEquals(10);
 
-        WebElement seeAllDesktopsButton =  mainPage.seeAllDesktopsButton();
-        BasePage.makeClick(seeAllDesktopsButton);
+        boolean isProducts12 = desktopPage.selectDropdownLimit("25")
+                .productsCountEquals(12);
 
-        DesktopPage desktopPage = new DesktopPage();
-
-        WebElement dropdownLimitSelected = desktopPage.dropdownLimitValue();
-        String limitValue = dropdownLimitSelected.getText();
-        boolean isLimit10 = limitValue.equals("10");
-
-        WebElement dropdownSort = desktopPage.dropdownSortValue();
-        String sortValue = dropdownSort.getText();
-        boolean isSortDefault = sortValue.equals("Default");
-
-        List<WebElement> products = desktopPage.products();
-        boolean isProducts10 = products.size() == 10;
-
-        Select dropdownLimit = desktopPage.dropdownLimit();
-        dropdownLimit.selectByVisibleText("25");
-
-        products = desktopPage.products();
-        boolean isProducts12 = products.size() == 12;
-
-        boolean hasElementWithText = false;
-        try {
-            desktopPage.elementWithText("Showing 1 to 12 of 12 (1 Pages)");
-            hasElementWithText = true;
-        } catch (Exception e) {}
-
+        boolean hasElementWithText = desktopPage.hasElementWithText("Showing 1 to 12 of 12 (1 Pages)");
 
         assertTrue(isLimit10 && isSortDefault && isProducts10 && isProducts12 && hasElementWithText);
     }
-
 }

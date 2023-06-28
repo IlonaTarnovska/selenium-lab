@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import project.pages.BasePage;
+import project.pages.MainPage;
 
 public class BaseTest {
 
@@ -14,6 +15,11 @@ public class BaseTest {
         //creating new instance of wed driver
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+
+
+        driver.get("https://demo.opencart.com/");
+
+
         //set driver into base page
         BasePage.setDriver(driver);
         //get driver from base page and maximize window

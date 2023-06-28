@@ -41,4 +41,5 @@ public abstract class BasePage {
         getJavascriptExecutor().executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);",
                 element, attName, attValue);
     }
+
 }

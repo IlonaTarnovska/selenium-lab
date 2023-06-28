@@ -27,46 +27,17 @@ public class SortedProductsTest extends BaseTest {
     @Test()
     public void checkDesktopsPage() {
         MainPage mainPage = new MainPage();
-        mainPage.openMainPage();
+        DesktopPage desktopPage = mainPage.clickDesktopsButton()
+                .clickAllDesktopsButton();
 
-        WebElement desktopsButton = mainPage.desktopsButton();
-        BasePage.makeClick(desktopsButton);
-
-        WebElement seeAllDesktopsButton = mainPage.seeAllDesktopsButton();
-        BasePage.makeClick(seeAllDesktopsButton);
-
-        DesktopPage desktopPage = new DesktopPage();
-        desktopPage.dropdownSort()
-                .selectByVisibleText("Name (A - Z)");
-
-        List<String> productNames = desktopPage.productsNames();
-        List<String> sortedNames = new ArrayList<>(productNames);
-        Collections.sort(productNames, Collator.getInstance());
-        boolean isNameSorted = areSortEquals(productNames, sortedNames);
-
-        desktopPage.dropdownSort()
-                .selectByVisibleText("Price (Low > High)");
-
-        List<Float> productPrices = desktopPage.productsPrice();
-        List<Float> sortedPrices = new ArrayList<>(productPrices);
-        Collections.sort(sortedPrices);
-        boolean isPriceSorted = areSortEquals(productPrices, sortedPrices);
+        boolean isNameSorted = desktopPage.selectDropdownSort("Name (A - Z)")
+                .checkProductNameSort();
+        boolean isPriceSorted = desktopPage.selectDropdownSort("Price (Low > High)")
+                .checkProductPriceSort();
 
         assertTrue(isNameSorted && isPriceSorted);
     }
 
-    private <T> boolean areSortEquals(List<T> list1, List<T> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        boolean isSortEquals = true;
-        for (int i = 0; i < list1.size(); i++) {
-            if(!list1.get(i).equals(list2.get(i))) {
-                isSortEquals = false;
-                break;
-            }
-        }
-        return isSortEquals;
-    }
+
 
 }

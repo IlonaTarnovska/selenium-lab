@@ -1,17 +1,39 @@
 package project.pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import project.pages.model.Currency;
 
 public class MainPage extends BasePage {
 
-    public MainPage openMainPage() {
-        getDriver().get("https://demo.opencart.com/");
-        return this;
+    public MainPage() {
+        PageFactory.initElements(getDriver(), this);
     }
 
-    public WebElement handleBrandButton() {
-        return findElementByXpath("//*[text()='Brands']");
+    @FindBy(xpath = "//*[text()='Brands']")
+    public static WebElement handleBrandButton;
+
+    @FindBy(xpath = "//*[text()='Desktops']")
+    public static WebElement desktopsButton;
+
+    @FindBy(xpath = "//div[@class='dropdown']/a")
+    public static WebElement CurrencySelector;
+
+    @FindBy(xpath ="//*[text()='Show All Desktops']")
+    public static WebElement clickDesktopsButton;
+
+
+    public WebElement currencySelector;
+
+    public BrandsPage clickHandleBrandsButton() {
+        makeClick(handleBrandButton);
+        return new BrandsPage();
+    }
+
+    public MainPage clickDesktopsButton() {
+        desktopsButton.click();
+        return this;
     }
 
     public WebElement myAccountButton() {
@@ -23,16 +45,19 @@ public class MainPage extends BasePage {
     }
 
     public WebElement desktopsButton() {
-        return findElementByXpath("//*[text()='Desktops']");
+            return findElementByXpath("//*[text()='Desktops']");
     }
 
-    public WebElement seeAllDesktopsButton() {
-        return findElementByXpath("//*[text()='Show All Desktops']");
+    public DesktopPage clickAllDesktopsButton(){
+        clickDesktopsButton.click();
+        return new DesktopPage();
     }
 
-    public WebElement currencySelector() {
-        return findElementByXpath("//div[@class='dropdown']/a");
+    public MainPage CurrencySelector() {
+        currencySelector.click();
+        return this;
     }
+
 
     public String currentCurrency() {
         return findElementByXpath("//div[@class='dropdown']/a/strong").getText();
@@ -50,4 +75,6 @@ public class MainPage extends BasePage {
         return findElementByXpath("//*[text()='Cameras']");
     }
 
+//    public ProductPage clickOnProduct(String s) {
+//    }
 }

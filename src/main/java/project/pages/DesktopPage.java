@@ -1,37 +1,86 @@
 package project.pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DesktopPage extends BasePage {
 
-    public Select dropdownLimit() {
-        return new Select(findElementByXpath("//*[@id='input-limit']"));
+    public DesktopPage() {
+        PageFactory.initElements(getDriver(), this);
     }
 
-    public WebElement dropdownLimitValue() {
-        return findElementByXpath("//*[@id='input-limit']/option[@selected]");
+    @FindBy(xpath = "//select[@id='input-limit']")
+    public static WebElement dropdownLimit;
+
+    @FindBy(xpath = "//*[@id='input-limit']/option[@selected]")
+    public static WebElement dropdownLimitValue;
+
+    @FindBy(xpath = "//select[@id='input-sort']")
+    public static WebElement dropdownSort;
+
+    @FindBy(xpath = "//*[@id='input-sort']/option[@selected]")
+    public static WebElement dropdownSortValue;
+
+    @FindBy(xpath = "//div[@id='product-list']/div")
+    public static List<WebElement> products;
+
+
+    public boolean checkDropdownLimitValue(String expected) {
+        return dropdownLimitValue.getText().equals(expected);
     }
 
-    public Select dropdownSort() {
-        return new Select(findElementByXpath("//*[@id='input-sort']"));}
-
-    public WebElement dropdownSortValue() {
-        return findElementByXpath("//*[@id='input-sort']/option[@selected]");
+    public DesktopPage selectDropdownLimit(String value){
+        Select select = new Select(dropdownLimit);
+        select.selectByVisibleText(value);
+        return this;
     }
 
-    public List<WebElement> products() {
-        return findElementsByXpath("//div[@id='product-list']/div");
+    public boolean checkDropdownSortValue(String expected) {
+        return dropdownSortValue.getText().equals(expected);
     }
 
-    public WebElement elementWithText(String text) {
-        return findElementByXpath("//*[text()='" + text + "']");
+    public DesktopPage selectDropdownSort(String value){
+        Select select = new Select(dropdownSort);
+        select.selectByVisibleText(value);
+        return this;
     }
 
-    public List<String> productsNames() {
+    public boolean productsCountEquals(int expected) {
+        return products.size() == expected;
+    }
+
+    public boolean hasElementWithText(String text) {
+        boolean hasElementWithText = false;
+        try {
+            findElementByXpath("//*[text()='" + text + "']");
+            hasElementWithText = true;
+        } catch (Exception e) {
+        }
+        return hasElementWithText;
+    }
+
+    public boolean checkProductNameSort() {
+        List<String> productNames = productsNames();
+        List<String> sortedNames = new ArrayList<>(productNames);
+        Collections.sort(productNames, Collator.getInstance());
+        return areSortEquals(productNames, sortedNames);
+    }
+
+    public boolean checkProductPriceSort() {
+        List<Float> productPrices = productsPrice();
+        List<Float> sortedPrices = new ArrayList<>(productPrices);
+        Collections.sort(sortedPrices);
+        return areSortEquals(productPrices, sortedPrices);
+    }
+
+    private List<String> productsNames() {
         List<WebElement> products = findElementsByXpath("//div[contains(@class, 'description')]/h4/a");
         List<String> productNames = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
@@ -50,5 +99,19 @@ public class DesktopPage extends BasePage {
             productPrices.add(Float.parseFloat(price));
         }
         return productPrices;
+    }
+
+    private <T> boolean areSortEquals(List<T> list1, List<T> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        boolean isSortEquals = true;
+        for (int i = 0; i < list1.size(); i++) {
+            if(!list1.get(i).equals(list2.get(i))) {
+                isSortEquals = false;
+                break;
+            }
+        }
+        return isSortEquals;
     }
 }

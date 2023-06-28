@@ -8,7 +8,44 @@ import java.util.List;
 
 public class CamerasPage extends BasePage {
 
-    public List<ProductModel> productsPrice() {
+    public boolean hasTwoProductsOnPage() {
+        return productsPrice().size() == 2;
+    }
+
+    public boolean hasCanon5dCorrectOldPrice() {
+        boolean has5dCorrectOldPrice = false;
+
+        List<ProductModel> products = productsPrice();
+        for (ProductModel product : products) {
+            String name = product.getProductName();
+            if (name.equals("Canon EOS 5D")) {
+                has5dCorrectOldPrice = 122.00f == product.getPriceOld();
+            }
+        }
+
+        return has5dCorrectOldPrice;
+    }
+
+    public boolean hasD300CorrectExRate() {
+        //init flag
+        boolean hasD300CorrectExRate = false;
+
+        //grab list with products
+        List<ProductModel> products = productsPrice();
+        //iterate list and find product by name
+        for (ProductModel product : products) {
+            String name = product.getProductName();
+            if (name.equals("Nikon D300")) {
+                //check tax
+                hasD300CorrectExRate = 80.00f == product.getTax();
+            }
+        }
+        //return result
+        return hasD300CorrectExRate;
+    }
+
+    //grab all products from page
+    private List<ProductModel> productsPrice() {
         int productsCount = findElementsByXpath("//div[@id='product-list']/div").size();
 
         List<ProductModel> products = new ArrayList<>();

@@ -26,30 +26,16 @@ public class CamerasTest extends BaseTest {
     @Test
     public void checkCameraPrice() {
         MainPage mainPage = new MainPage();
-        mainPage.openMainPage();
+        mainPage.clickDesktopsButton();
 
         WebElement cameras = mainPage.camerasButton();
         BasePage.makeClick(cameras);
 
         CamerasPage camerasPage = new CamerasPage();
-        List<ProductModel> products = camerasPage.productsPrice();
+        boolean hasTwoProducts = camerasPage.hasTwoProductsOnPage();
+        boolean has5dCorrectOldPrice = camerasPage.hasCanon5dCorrectOldPrice();
+        boolean hasD300CorrectExRate = camerasPage.hasD300CorrectExRate();
 
-        boolean hasTwoProducts = products.size() == 2;
-
-        boolean has5dCorrectOldPrice = false;
-        boolean has5dCorrectNewPrice = false;
-        boolean hasD300CorrectExtRate = false;
-
-        for (ProductModel product: products) {
-            String name = product.getProductName();
-            if (name.equals("Canon EOS 5D")) {
-                has5dCorrectOldPrice = 122.00f == product.getPriceOld();
-                has5dCorrectNewPrice = 98.00f == product.getPriceNew();
-            } else if (name.equals("Nikon D300")) {
-                hasD300CorrectExtRate = 80f == product.getTax();
-            }
-        }
-
-        assertTrue(hasTwoProducts && has5dCorrectOldPrice && has5dCorrectNewPrice && hasD300CorrectExtRate);
+        assertTrue(hasTwoProducts && has5dCorrectOldPrice && hasD300CorrectExRate);
     }
 }

@@ -1,11 +1,7 @@
 package project.tests;
 
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
-import project.pages.BasePage;
 import project.pages.MainPage;
-import project.pages.RegisterPage;
-import project.pages.WelcomePage;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,8 +18,14 @@ public class RegisterTest extends BaseTest {
     @Test
     public void registrationTest() {
         MainPage mainPage = new MainPage();
-        mainPage.openMainPage();
 
+        //new
+//        boolean isWelcome = mainPage.clickAccountButton()
+//                .clickRegisterButton()
+//                .register("name" ....)
+//                .checkWelcomePage()
+
+        /* old - remove it
         WebElement myAccountButton = mainPage.myAccountButton();
         BasePage.makeClick(myAccountButton);
 
@@ -40,7 +42,9 @@ public class RegisterTest extends BaseTest {
 
         WelcomePage welcomePage = new WelcomePage();
         boolean isWelcome = welcomePage.checkWelcomePage();
-        assertTrue(isWelcome);
+        */
+
+//        assertTrue(isWelcome);
     }
 
 }

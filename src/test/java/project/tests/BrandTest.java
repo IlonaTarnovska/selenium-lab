@@ -1,5 +1,6 @@
 package project.tests;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,17 +26,16 @@ public class BrandTest extends BaseTest {
     @Test
     public void findBrands() {
         MainPage mainPage = new MainPage();
-        mainPage.openMainPage();
-
-        WebElement brandButton = mainPage.handleBrandButton();
-        BasePage.makeClick(brandButton);
+        List <String> actualBrandsList = mainPage
+                .clickHandleBrandsButton()
+                .getBrands();
 
         //Brands page
-        List<String> brands = Arrays.asList("Apple", "Canon", "Hewlett-Packard", "HTC", "Palm", "Sony");
-        BrandsPage brandsPage = new BrandsPage();
-        boolean arePresent = brandsPage.areBrandsPresent(brands);
+        List<String> expectedBrandsList = Arrays.asList("Apple", "Canon", "Hewlett-Packard", "HTC", "Palm", "Sony");
 
-        assertTrue(arePresent);
+        Assertions.assertThat(actualBrandsList)
+                .as("wrong name")
+                .containsExactlyElementsOf(expectedBrandsList);
     }
 
 }

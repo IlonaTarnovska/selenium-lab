@@ -25,13 +25,13 @@ public class CurrencyTest extends BaseTest {
     @Test()
     public void checkCurrency() {
         MainPage mainPage = new MainPage();
-        mainPage.openMainPage();
+        mainPage.CurrencySelector();
 
         String currentCurrency = mainPage.currentCurrency();
-        //site has bug, currency shows as $ but selected is eur
-        //if (!currentCurrency.equals("$")) {
-        //    changeCurrency(mainPage, Currency.USD);
-        //}
+        //site has bug, currency shows as $ but selected is eur//
+        if (!currentCurrency.equals("$")) {
+            changeCurrency(mainPage, Currency.USD);
+        }
         changeCurrency(mainPage, Currency.USD);
 
         WebElement iPhone = mainPage.findProductByName("iPhone");
@@ -54,7 +54,7 @@ public class CurrencyTest extends BaseTest {
     }
 
     private void changeCurrency(MainPage mainPage, Currency currency) {
-        WebElement currencySelector = mainPage.currencySelector();
+        WebElement currencySelector = mainPage.currencySelector;
         BasePage.makeClick(currencySelector);
         WebElement newCurrency = mainPage.findCurrencyBy(currency);
         BasePage.makeClick(newCurrency);
