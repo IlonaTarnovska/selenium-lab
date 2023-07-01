@@ -29,6 +29,9 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//*[text()='Register']")
     public static WebElement registerButton;
 
+    @FindBy(xpath = "//*[text()='Login']")
+    public static WebElement loginButton;
+
     @FindBy(xpath = "//div[@class='dropdown']/a/strong")
     public static WebElement currentCurrency;
 
@@ -80,6 +83,11 @@ public class MainPage extends BasePage {
     public MainPage clickAccountButton() {
         myAccountButton.click();
         return this;
+    }
+
+    public LoginPage clickLoginButton() {
+        makeClick(loginButton);
+        return new LoginPage();
     }
 
     public RegisterPage clickRegisterButton() {
