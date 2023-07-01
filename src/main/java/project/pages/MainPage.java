@@ -20,8 +20,14 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//div[@class='dropdown']/a")
     public static WebElement CurrencySelector;
 
-    @FindBy(xpath ="//*[text()='Show All Desktops']")
+    @FindBy(xpath = "//*[text()='Show All Desktops']")
     public static WebElement clickDesktopsButton;
+
+    @FindBy(xpath = "//*[text()='My Account']")
+    public static WebElement myAccountButton;
+
+    @FindBy(xpath = "//*[text()='Register']")
+    public static WebElement registerButton;
 
 
     public WebElement currencySelector;
@@ -36,19 +42,7 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public WebElement myAccountButton() {
-        return findElementByXpath("//*[text()='My Account']");
-    }
-
-    public WebElement registerButton() {
-        return findElementByXpath("//*[text()='Register']");
-    }
-
-    public WebElement desktopsButton() {
-            return findElementByXpath("//*[text()='Desktops']");
-    }
-
-    public DesktopPage clickAllDesktopsButton(){
+    public DesktopPage clickAllDesktopsButton() {
         clickDesktopsButton.click();
         return new DesktopPage();
     }
@@ -75,6 +69,13 @@ public class MainPage extends BasePage {
         return findElementByXpath("//*[text()='Cameras']");
     }
 
-//    public ProductPage clickOnProduct(String s) {
-//    }
+    public MainPage clickAccountButton() {
+        myAccountButton.click();
+        return this;
+    }
+
+    public RegisterPage clickRegisterButton() {
+        makeClick(registerButton);
+        return new RegisterPage();
+    }
 }

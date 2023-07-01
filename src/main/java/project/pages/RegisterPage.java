@@ -1,35 +1,47 @@
 package project.pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class RegisterPage extends BasePage {
 
+    public RegisterPage() {
+        PageFactory.initElements(getDriver(), this);
+    }
 
-    public void register(
+    @FindBy(xpath = "//input[@id='input-firstname']")
+    public static WebElement fNameElement;
+
+    @FindBy(xpath = "//input[@id='input-lastname']")
+    public static WebElement lNameElement;
+
+    @FindBy(xpath = "//input[@id='input-email']")
+    public static WebElement emailElement;
+
+    @FindBy(xpath = "//input[@id='input-password']")
+    public static WebElement passwordElement;
+
+    @FindBy(xpath = "//input[@name='agree']")
+    public static WebElement checkBoxElement;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    public static WebElement continueButtonElement;
+
+
+    public WelcomePage register(
             String firstName,
             String lastName,
             String email,
             String password
     ) {
-        WebElement fNameElement = findElementByXpath("//input[@id='input-firstname']");
         setAttribute(fNameElement, "value", firstName);
-
-        WebElement lNameElement = findElementByXpath("//input[@id='input-lastname']");
         setAttribute(lNameElement, "value", lastName);
-
-        WebElement emailElement = findElementByXpath("//input[@id='input-email']");
         setAttribute(emailElement, "value", email);
-
-        WebElement passwordElement = findElementByXpath("//input[@id='input-password']");
         setAttribute(passwordElement, "value", password);
-
-        WebElement checkBoxElement = findElementByXpath("//input[@name='agree']");
         setAttribute(checkBoxElement, "value", "1");
 
-        WebElement continueButtonElement = findElementByXpath("//button[@type='submit']");
-
         makeClick(continueButtonElement);
-
+        return new WelcomePage();
     }
-
 }

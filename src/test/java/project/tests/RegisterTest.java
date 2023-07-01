@@ -19,32 +19,12 @@ public class RegisterTest extends BaseTest {
     public void registrationTest() {
         MainPage mainPage = new MainPage();
 
-        //new
-//        boolean isWelcome = mainPage.clickAccountButton()
-//                .clickRegisterButton()
-//                .register("name" ....)
-//                .checkWelcomePage()
+        boolean isWelcome = mainPage.clickAccountButton()
+                .clickRegisterButton()
+                .register("Ilona", "Tarnovska", "tarnovska@gmail.com", "5387A037h2")
+                .checkWelcomePage();
 
-        /* old - remove it
-        WebElement myAccountButton = mainPage.myAccountButton();
-        BasePage.makeClick(myAccountButton);
-
-        WebElement registerButton = mainPage.registerButton();
-        BasePage.makeClick(registerButton);
-
-        RegisterPage registerPage = new RegisterPage();
-        registerPage.register(
-                "Ilona",
-                "Tarnovska",
-                "tarnovska@gmail.com",
-                "5387A037h2"
-        );
-
-        WelcomePage welcomePage = new WelcomePage();
-        boolean isWelcome = welcomePage.checkWelcomePage();
-        */
-
-//        assertTrue(isWelcome);
+        assertTrue(isWelcome);
     }
 
 }
