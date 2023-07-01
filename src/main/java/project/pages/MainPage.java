@@ -29,7 +29,10 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//*[text()='Register']")
     public static WebElement registerButton;
 
+    @FindBy(xpath = "//div[@class='dropdown']/a/strong")
+    public static WebElement currentCurrency;
 
+    @FindBy(xpath = "//div[@class='dropdown']/a")
     public WebElement currencySelector;
 
     public BrandsPage clickHandleBrandsButton() {
@@ -47,11 +50,14 @@ public class MainPage extends BasePage {
         return new DesktopPage();
     }
 
-    public MainPage CurrencySelector() {
-        currencySelector.click();
+    public MainPage currencySelector() {
+        makeClick(currencySelector);
         return this;
     }
 
+    public boolean isCurrentCurrencyEquals(Currency currency) {
+        return currentCurrency.getText().equals(currency.sign());
+    }
 
     public String currentCurrency() {
         return findElementByXpath("//div[@class='dropdown']/a/strong").getText();
@@ -61,8 +67,10 @@ public class MainPage extends BasePage {
         return findElementByXpath("//a[@href='" + currency.name() + "']");
     }
 
-    public WebElement findProductByName(String name) {
-        return findElementByXpath("//*[text()='" + name + "']");
+    public ProductPage openProductByName(String name) {
+        WebElement product = findElementByXpath("//*[text()='" + name + "']");
+        makeClick(product);
+        return new ProductPage();
     }
 
     public WebElement camerasButton() {
@@ -77,5 +85,11 @@ public class MainPage extends BasePage {
     public RegisterPage clickRegisterButton() {
         makeClick(registerButton);
         return new RegisterPage();
+    }
+
+    public void changeCurrency(Currency currency) {
+        BasePage.makeClick(currencySelector);
+        WebElement newCurrency = findCurrencyBy(currency);
+        BasePage.makeClick(newCurrency);
     }
 }

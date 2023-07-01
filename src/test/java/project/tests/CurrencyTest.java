@@ -14,7 +14,7 @@ public class CurrencyTest extends BaseTest {
     //     Test #4
     //
     // Go to the https://demo.opencart.com/
-    // On the main page check that current currency is $ (change to $ id not)
+    // On the main page check that current currency is $ (change to $ if not)
     // Click on the Iphone
     // Check that price 123.20
     // Change currency to euro
@@ -25,40 +25,26 @@ public class CurrencyTest extends BaseTest {
     @Test()
     public void checkCurrency() {
         MainPage mainPage = new MainPage();
-        mainPage.CurrencySelector();
+        mainPage.currencySelector();
 
-        String currentCurrency = mainPage.currentCurrency();
+        boolean isUsd = mainPage.isCurrentCurrencyEquals(Currency.USD);
         //site has bug, currency shows as $ but selected is eur//
-        if (!currentCurrency.equals("$")) {
-            changeCurrency(mainPage, Currency.USD);
+        if (!isUsd) {
+            mainPage.changeCurrency(Currency.USD);
         }
-        changeCurrency(mainPage, Currency.USD);
+        mainPage.changeCurrency(Currency.USD);
 
-        WebElement iPhone = mainPage.findProductByName("iPhone");
-        BasePage.makeClick(iPhone);
+        ProductPage productPage = mainPage.openProductByName("iPhone");
 
-        ProductPage productPage = new ProductPage();
+        boolean isCorrectUsdPrice = productPage.checkPrice(123.20f);
 
-        //check usd price
-        boolean isCorrectUsdPrice = 123.20f == productPage.price();
+        mainPage.changeCurrency(Currency.EUR);
+        boolean isCorrectEuroPrice = productPage.checkPrice( 106.04f);
 
-        //check eur price
-        changeCurrency(mainPage, Currency.EUR);
-        boolean isCorrectEuroPrice = 106.04f == productPage.price();
+        mainPage.changeCurrency(Currency.GBP);
+        boolean isCorrectPoundPrice = productPage.checkPrice( 95.32f);
 
-        //check pound price
-        changeCurrency(mainPage, Currency.GBP);
-        boolean isCorrectPoundPrice = 95.32f == productPage.price();
-
-        assertTrue(isCorrectUsdPrice && isCorrectEuroPrice && isCorrectPoundPrice);
+       assertTrue(isCorrectUsdPrice && isCorrectEuroPrice && isCorrectPoundPrice);
     }
-
-    private void changeCurrency(MainPage mainPage, Currency currency) {
-        WebElement currencySelector = mainPage.currencySelector;
-        BasePage.makeClick(currencySelector);
-        WebElement newCurrency = mainPage.findCurrencyBy(currency);
-        BasePage.makeClick(newCurrency);
-    }
-
 }
 
