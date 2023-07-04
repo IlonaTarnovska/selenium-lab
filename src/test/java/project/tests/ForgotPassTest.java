@@ -1,10 +1,8 @@
 package project.tests;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import project.pages.MainPage;
-
-import static org.testng.AssertJUnit.assertTrue;
 
 public class ForgotPassTest extends BaseTest {
 

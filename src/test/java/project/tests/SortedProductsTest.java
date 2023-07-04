@@ -1,14 +1,9 @@
 package project.tests;
 
-import org.junit.Test;
-import org.openqa.selenium.WebElement;
-import project.pages.BasePage;
+import org.testng.annotations.Test;
 import project.pages.DesktopPage;
 import project.pages.MainPage;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 public class SortedProductsTest extends BaseTest {

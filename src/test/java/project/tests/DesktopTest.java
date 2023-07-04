@@ -1,6 +1,6 @@
 package project.tests;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import project.pages.DesktopPage;
 import project.pages.MainPage;
 

@@ -1,13 +1,10 @@
 package project.tests;
 
-import org.junit.Test;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
 import project.pages.BasePage;
 import project.pages.CamerasPage;
 import project.pages.MainPage;
-import project.pages.model.ProductModel;
-
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 

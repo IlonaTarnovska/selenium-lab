@@ -1,11 +1,9 @@
 package project.tests;
 
-import org.junit.Test;
-import org.openqa.selenium.WebElement;
-import project.pages.BasePage;
-import project.pages.model.Currency;
+import org.testng.annotations.Test;
 import project.pages.MainPage;
 import project.pages.ProductPage;
+import project.pages.model.Currency;
 
 import static org.junit.Assert.assertTrue;
 

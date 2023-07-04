@@ -1,18 +1,11 @@
 package project.tests;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import project.pages.BasePage;
-import project.pages.BrandsPage;
+import org.testng.annotations.Test;
 import project.pages.MainPage;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 public class BrandTest extends BaseTest {
 
